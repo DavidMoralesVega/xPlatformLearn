@@ -17,11 +17,11 @@ export const PublicRoutes: Routes = [
     loadComponent: () =>
       import('./pages/programs/container/component').then((m) => m.ProgramsPublicComponent),
   },
-  {
-    path: 'programa/:slug',
-    loadComponent: () =>
-      import('./pages/program/container/component').then((m) => m.ProgramPublicComponent),
-  },
+  // {
+  //   path: 'programa/:slug',
+  //   loadComponent: () =>
+  //     import('./pages/program/container/component').then((m) => m.ProgramPublicComponent),
+  // },
   {
     path: '**',
     loadComponent: () =>
