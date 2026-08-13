@@ -6,11 +6,12 @@
 // estudiar( nombre: string, tema: string ): retroalimentacion: 80
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { HeaderPublicComponent } from '../components/header/container/component';
 
 @Component({
   selector: 'public',
   templateUrl: './component.html',
   styleUrls: ['./component.css'],
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, HeaderPublicComponent],
 })
-export class PublicComponent {}
+export class PublicComponent { }
