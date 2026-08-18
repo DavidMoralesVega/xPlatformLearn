@@ -1,17 +1,32 @@
-// Include theming for Angular Material with `mat.theme()`.
-// This Sass mixin will define CSS variables that are used for styling Angular Material
-// components according to the Material 3 design spec.
-// Learn more about theming and how to use it for your application's
-// custom components at https://material.angular.dev/guide/theming
+// ============================================================================
+// EL TEMA DE ANGULAR MATERIAL
+// ============================================================================
+// Un sistema de diseño no es una paleta de colores: es un solo lugar donde se
+// toma cada decisión, para que no se tome cuarenta veces. Este archivo es ese
+// lugar, y por eso ningún componente tiene su propio `.css`.
+//
+// Las paletas de `_theme-colors.scss` se generaron con:
+//
+//     ng generate @angular/material:theme-color --primary-color="#8A0F1C" ...
+//
+// a partir de los colores de la Universidad Privada de Oruro: el granate de la
+// marca, el dorado de los botones y el azul de los enlaces. De ese comando sale
+// una escala entera —del 0 al 100— por cada color, y Material la usa para
+// decidir por sí solo qué tono va en un botón, en su estado presionado, en el
+// texto de encima y en el modo oscuro.
+// ============================================================================
 @use '@angular/material' as mat;
+@use './theme-colors' as unior;
 
 html {
   height: 100%;
+  color-scheme: light;
+
   @include mat.theme(
     (
       color: (
-        primary: mat.$azure-palette,
-        tertiary: mat.$blue-palette,
+        primary: unior.$primary-palette,
+        tertiary: unior.$tertiary-palette,
       ),
       typography: Roboto,
       density: 0,
@@ -20,19 +35,73 @@ html {
 }
 
 body {
-  // Default the application to a light color theme. This can be changed to
-  // `dark` to enable the dark color theme, or to `light dark` to defer to the
-  // user's system settings.
-  color-scheme: light;
-
-  // Set a default background, font and text colors for the application using
-  // Angular Material's system-level CSS variables. Learn more about these
-  // variables at https://material.angular.dev/guide/system-variables
+  margin: 0;
+  min-height: 100%;
   background-color: var(--mat-sys-surface);
   color: var(--mat-sys-on-surface);
   font: var(--mat-sys-body-medium);
+  -webkit-font-smoothing: antialiased;
+}
 
-  // Reset the user agent margin.
-  margin: 0;
-  height: 100%;
+// ── Ajustes a componentes de Material ──────────────────────────────────────
+//
+// Estas reglas NO van dentro de `@layer components` a propósito. El CSS de
+// Material no vive en ninguna capa, y **lo que no está en una capa gana**: una
+// utilidad de Tailwind sobre un componente de Material no hace nada. Por eso
+// acá el selector lleva la etiqueta Y la clase.
+
+mat-toolbar.topbar {
+  height: auto;
+  padding: 0;
+  background: #ffffff;
+  border-bottom: 1px solid var(--color-unior-line);
+}
+
+// La tarjeta de Material trae su propio relleno y su propia sombra. Se le quita
+// la sombra y se le pone un borde: es la misma decisión que tomó la página de
+// la universidad, donde las tarjetas se separan del fondo por una línea fina.
+mat-card.program-card {
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 16px;
+  box-shadow: none;
+  overflow: hidden;
+  transition:
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+mat-card.program-card:hover {
+  border-color: var(--mat-sys-primary);
+  transform: translateY(-2px);
+}
+
+// El formulario de ingreso ocupa el ancho completo de su columna.
+mat-form-field.field {
+  width: 100%;
+}
+
+// La llamada a la acción de la portada va en el dorado de la institución. Con
+// el color de marca quedaba granate sobre granate: el botón estaba ahí y no se
+// veía. Es la misma pareja que usa unior.edu.bo —una acción llena y otra
+// delineada— pero al revés, porque acá el fondo ya es el granate.
+// El valor va escrito acá y no como `var(--color-unior-gold)`: ese token lo
+// declara Tailwind en `styles.css`, y Tailwind **borra los tokens que ninguna
+// utilidad usa**. Como el dorado solo se usa en este botón, la variable no
+// existía en tiempo de ejecución y el fondo quedaba transparente. Un archivo
+// que no pasa por Tailwind no puede depender de las variables de Tailwind.
+.hero [matButton='filled'].on-gold {
+  background-color: #f1b300;
+  color: #1b1b1f;
+  --mdc-filled-button-container-color: #f1b300;
+  --mdc-filled-button-label-text-color: #1b1b1f;
+}
+
+// Un botón delineado sobre la portada oscura: Material lo pinta con el color de
+// la marca —granate sobre granate— y ahí no se ve nada. El selector lleva tres
+// piezas para ganarle al de Material sin recurrir a `!important`.
+.hero [matButton='outlined'].on-dark {
+  color: #ffffff;
+  border-color: rgb(255 255 255 / 0.55);
+  --mdc-outlined-button-label-text-color: #ffffff;
+  --mdc-outlined-button-outline-color: rgb(255 255 255 / 0.55);
 }

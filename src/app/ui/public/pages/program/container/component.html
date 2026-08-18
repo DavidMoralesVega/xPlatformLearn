@@ -1,1 +1,89 @@
-<h1>Public Program Page</h1>
+<section class="page section">
+  <a matButton routerLink="/programas" class="-ml-3 mb-6">
+    <mat-icon>arrow_back</mat-icon>
+    Todos los programas
+  </a>
+
+  @if (loading()) {
+    <div class="state">
+      <mat-spinner diameter="36" />
+      <p class="state-text">Cargando el programa…</p>
+    </div>
+  } @else if (program(); as program) {
+    <img class="detail-cover" [src]="cover(program)" width="800" height="450" alt="" />
+
+    <div class="detail-grid">
+      <div class="flex flex-col gap-6">
+        <div class="flex flex-col gap-3">
+          <span class="tag tag-strong">{{ program.area }}</span>
+          <h1 class="section-title">{{ program.name }}</h1>
+          <p class="section-lead">
+            Dirigido a profesionales con grado de licenciatura que buscan una especialización con
+            respaldo universitario y horario compatible con el trabajo.
+          </p>
+        </div>
+
+        <mat-divider />
+
+        <div class="flex flex-col gap-4">
+          <h2 class="text-xl font-semibold text-unior-ink">Qué se lleva al terminar</h2>
+          <ul class="bullets">
+            <li>
+              Certificación con carga horaria académica reconocida por la Universidad Privada de
+              Oruro.
+            </li>
+            <li>
+              Material y grabación de cada sesión, disponibles durante todo el programa y tres meses
+              después de cerrarlo.
+            </li>
+            <li>
+              Acompañamiento docente para el trabajo final, que se defiende al cerrar el diplomado.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <aside class="flex flex-col gap-5">
+        <div class="fact-list">
+          <div class="fact">
+            <span class="fact-label">Área</span>
+            <span class="fact-value">{{ program.area }}</span>
+          </div>
+          <div class="fact">
+            <span class="fact-label">Carga horaria</span>
+            <span class="fact-value">{{ program.hours }} horas</span>
+          </div>
+          <div class="fact">
+            <span class="fact-label">Modalidad</span>
+            <span class="fact-value">{{ program.mode }}</span>
+          </div>
+          <div class="fact">
+            <span class="fact-label">Inversión</span>
+            <span class="fact-value">Bs {{ program.priceBs | number: '1.0-0' }}</span>
+          </div>
+        </div>
+
+        <a matButton="filled" routerLink="/iniciar-sesion" class="w-full">Postular al programa</a>
+
+        <p class="card-text">
+          La postulación se completa desde la plataforma. Necesita su cédula de identidad y el
+          título en provisión nacional escaneados.
+        </p>
+      </aside>
+    </div>
+  } @else {
+    <!--
+      El slug de la dirección no corresponde a ningún programa abierto: o el
+      enlace está vencido, o el programa se apagó. No es un error del sistema, y
+      por eso la pantalla explica y ofrece una salida en vez de disculparse.
+    -->
+    <div class="state">
+      <h1 class="state-title">Este programa ya no está disponible</h1>
+      <p class="state-text">
+        El enlace puede estar vencido o el programa dejó de ofertarse. En el catálogo está todo lo
+        que sigue abierto.
+      </p>
+      <a matButton="filled" routerLink="/programas" class="mt-2">Ver los programas</a>
+    </div>
+  }
+</section>

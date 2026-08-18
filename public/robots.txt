@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /iniciar-sesion
+
+Sitemap: https://learn-unior.web.app/sitemap.xml

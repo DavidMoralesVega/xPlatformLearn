@@ -1,1 +1,61 @@
-<h1>Public Programs Page</h1>
+<section class="page section">
+  <div class="section-head">
+    <span class="tag tag-strong">Oferta 2026</span>
+    <h1 class="section-title">Programas de posgrado</h1>
+    <p class="section-lead">
+      Diplomados abiertos a profesionales con grado de licenciatura. Cada programa indica su
+      modalidad, su carga horaria y la inversión total.
+    </p>
+  </div>
+
+  <!--
+    Las tres caras de una pantalla que pide datos: esperando, sin resultados y
+    con resultados. La tercera es la única que casi siempre se dibuja, y las
+    otras dos son las que se ven cuando algo no sale como estaba previsto.
+  -->
+  @if (loading()) {
+    <div class="state">
+      <mat-spinner diameter="36" />
+      <p class="state-text">Cargando los programas…</p>
+    </div>
+  } @else if (catalog().length === 0) {
+    <div class="state">
+      <h2 class="state-title">Todavía no hay programas abiertos</h2>
+      <p class="state-text">
+        La próxima convocatoria se publica en esta misma página. Si necesita información antes,
+        escriba a la Dirección de Posgrado.
+      </p>
+    </div>
+  } @else {
+    <div class="card-grid">
+      <!--
+        `track program.id` no es un requisito de sintaxis: le dice a Angular cómo
+        reconocer cada tarjeta entre dos dibujados. Con el índice, reordenar la
+        lista haría que reutilice la tarjeta equivocada.
+      -->
+      @for (program of catalog(); track program.id) {
+        <mat-card class="program-card" appearance="outlined">
+          <img class="card-cover" [src]="cover(program)" width="800" height="450" alt="" />
+
+          <div class="card-body">
+            <span class="tag">{{ program.area }}</span>
+
+            <h2 class="card-title">{{ program.name }}</h2>
+
+            <p class="card-text">
+              {{ program.hours }} horas académicas · Modalidad {{ program.mode }}
+            </p>
+
+            <p class="price">Bs {{ program.priceBs | number: '1.0-0' }}</p>
+
+            <a matButton="filled" [routerLink]="['/programa', program.slug]">Ver programa</a>
+
+            <span class="card-rule"></span>
+          </div>
+        </mat-card>
+      } @empty {
+        <p>No se encontraron programas vigentes</p>
+      }
+    </div>
+  }
+</section>

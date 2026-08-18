@@ -1,7 +1,41 @@
-<mat-toolbar>
-    <span>My App</span>
-    <span class="example-spacer"></span>
-    <a mat-button routerLink="./inicio">Inicio</a>
-    <a mat-button routerLink="./programas">Programas</a>
-    <a mat-button routerLink="./iniciar-sesion">Iniciar sesión</a>
+<mat-toolbar class="topbar">
+  <div class="page topbar-inner">
+    <a routerLink="/inicio" class="brand" aria-label="Inicio · UNIOR">
+      <img
+        class="brand-mark"
+        src="img/escudo.webp"
+        width="400"
+        height="573"
+        alt="Escudo de la Universidad Privada de Oruro" />
+      <span class="wordmark">UNIOR</span>
+    </a>
+
+    <nav class="topbar-links" aria-label="Principal">
+      <a routerLink="/inicio" routerLinkActive="topbar-link-active" class="topbar-link">Inicio</a>
+      <a routerLink="/programas" routerLinkActive="topbar-link-active" class="topbar-link">Programas</a>
+    </nav>
+
+    <!--
+      Tres estados y no dos. Mientras Firebase contesta no se sabe si hay sesión,
+      y dibujar «Iniciar sesión» durante esos milisegundos produce el parpadeo
+      clásico: aparece el botón, desaparece y sale el nombre. Se reserva el hueco
+      con un elemento vacío del mismo ancho.
+    -->
+    <div class="topbar-session">
+      @if (auth.loading()) {
+        <span class="topbar-session-placeholder" aria-hidden="true"></span>
+      } @else if (auth.user(); as user) {
+        <a matButton routerLink="/admin/portal" class="topbar-user">
+          <mat-icon>account_circle</mat-icon>
+          {{ firstName(user.name) }}
+        </a>
+        <button matButton type="button" (click)="onSignOut()">Salir</button>
+      } @else {
+        <a matButton="filled" routerLink="/iniciar-sesion">
+          <mat-icon>login</mat-icon>
+          Iniciar sesión
+        </a>
+      }
+    </div>
+  </div>
 </mat-toolbar>

@@ -1,1 +1,73 @@
-<h1>Public Home Page</h1>
+<section class="hero">
+  <img
+    class="hero-watermark"
+    src="img/escudo.webp"
+    width="400"
+    height="573"
+    alt=""
+    aria-hidden="true" />
+
+  <div class="page hero-inner">
+    <span class="hero-eyebrow">Dirección de Posgrado</span>
+
+    <h1 class="hero-title">Formación de posgrado para quienes ya están ejerciendo</h1>
+
+    <p class="hero-lead">
+      Diplomados con horario compatible con el trabajo, docentes en ejercicio y certificación
+      de la Universidad Privada de Oruro.
+    </p>
+
+    <div class="hero-actions">
+      <a matButton="filled" routerLink="/programas" class="on-gold">Ver programas</a>
+      <a matButton="outlined" routerLink="/iniciar-sesion" class="on-dark">Ya soy estudiante</a>
+    </div>
+  </div>
+</section>
+
+<section class="page section">
+  <div class="section-head">
+    <h2 class="section-title">Por qué estudiar acá</h2>
+    <p class="section-lead">
+      Tres compromisos que sostienen cada programa, y que se pueden verificar antes de
+      inscribirse.
+    </p>
+  </div>
+
+  <div class="card-grid">
+    <mat-card class="program-card" appearance="outlined">
+      <div class="card-body">
+        <mat-icon class="text-unior-red">schedule</mat-icon>
+        <h3 class="card-title">Horario de quien trabaja</h3>
+        <p class="card-text">
+          Clases en la noche y material grabado. Ningún programa exige dejar el empleo para
+          cursarlo.
+        </p>
+        <span class="card-rule"></span>
+      </div>
+    </mat-card>
+
+    <mat-card class="program-card" appearance="outlined">
+      <div class="card-body">
+        <mat-icon class="text-unior-red">workspace_premium</mat-icon>
+        <h3 class="card-title">Certificación universitaria</h3>
+        <p class="card-text">
+          Carga horaria académica reconocida y respaldo institucional de la Universidad
+          Privada de Oruro.
+        </p>
+        <span class="card-rule"></span>
+      </div>
+    </mat-card>
+
+    <mat-card class="program-card" appearance="outlined">
+      <div class="card-body">
+        <mat-icon class="text-unior-red">groups</mat-icon>
+        <h3 class="card-title">Docentes en ejercicio</h3>
+        <p class="card-text">
+          Quien dicta trabaja de eso. Los casos que se resuelven en clase salen de proyectos
+          reales.
+        </p>
+        <span class="card-rule"></span>
+      </div>
+    </mat-card>
+  </div>
+</section>

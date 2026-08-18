@@ -3,6 +3,10 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    /* Sin esto, la mitad de lo que comprueba TypeScript queda apagado: se
+       permite `null` donde se espera un valor y los parámetros sin tipo pasan
+       como `any`. Es una línea y evita una clase entera de errores. */
+    "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
@@ -17,7 +21,11 @@
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true
+    "strictInputAccessModifiers": true,
+    /* Comprueba los tipos también dentro de las plantillas. Sin esto,
+       `{{ programa.nombre }}` con un campo que no existe compila igual y
+       aparece vacío en pantalla. */
+    "strictTemplates": true
   },
   "files": [],
   "references": [

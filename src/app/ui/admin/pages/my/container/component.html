@@ -1,1 +1,15 @@
-<h1>Admin my programs Page</h1>
+<section class="page section">
+  <div class="section-head">
+    @if (auth.user(); as user) {
+      <h1 class="section-title">Hola, {{ user.name }}</h1>
+      <p class="section-lead">{{ user.email }}</p>
+    } @else {
+      <h1 class="section-title">Mis programas</h1>
+    }
+  </div>
+
+  <div class="state">
+    <h2 class="state-title">Todavía no hay inscripciones</h2>
+    <p class="state-text">Cuando postule a un programa y sea admitido, lo verá en esta lista.</p>
+  </div>
+</section>

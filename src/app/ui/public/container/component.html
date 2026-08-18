@@ -1,3 +1,22 @@
-<h1>Public Container</h1>
-<public-header />
-<router-outlet />
+<div class="flex min-h-dvh flex-col bg-unior-canvas">
+  <public-header />
+
+  <main class="flex-1">
+    <router-outlet />
+  </main>
+
+  <footer class="footer">
+    <div class="page footer-inner">
+      <div class="brand">
+        <img
+          class="h-10 w-auto"
+          src="img/escudo.webp"
+          width="400"
+          height="573"
+          alt="" />
+        <p class="footer-text">Universidad Privada de Oruro · Dirección de Posgrado</p>
+      </div>
+      <p class="footer-text">Oruro, Bolivia</p>
+    </div>
+  </footer>
+</div>

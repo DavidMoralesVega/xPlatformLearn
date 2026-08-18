@@ -1,3 +1,305 @@
-/* You can add global styles to this file, and also import other style files */
+/* ============================================================================
+   EL SISTEMA DE ESTILOS
+   ============================================================================
+   Todo el diseño de la plataforma vive acá. Ningún componente tiene un `.css`
+   propio: una decisión de diseño se toma una vez, en un archivo, y no se sale a
+   buscarla por veinte carpetas.
+
+   Reparto del trabajo:
+   · Angular Material  → los componentes (botones, campos, tarjetas, barra).
+   · Tailwind          → la disposición (rejillas, espaciados, tamaños).
+   · Este archivo      → los nombres. `.hero`, `.card-grid`, `.field-note`.
+
+   Las clases con nombre son las que hacen que la plantilla se lea. Un `<section
+   class="hero">` dice qué es; catorce utilidades seguidas dicen cómo se ve, que
+   es otra cosa y no va en el HTML.
+   ============================================================================ */
 
 @import 'tailwindcss';
+
+/* ── Los colores de la institución ───────────────────────────────────────────
+   Salen de unior.edu.bo: el granate de la marca, el rojo de las llamadas a la
+   acción y el dorado de los botones. Declararlos en `@theme` los convierte en
+   utilidades de Tailwind (`bg-unior-red`, `text-unior-gold`) y en variables CSS
+   al mismo tiempo. */
+@theme {
+  --color-unior-red: #8a0f1c;
+  --color-unior-red-deep: #660915;
+  --color-unior-red-vivid: #f10003;
+  --color-unior-gold: #f1b300;
+  --color-unior-ink: #1b1b1f;
+  --color-unior-muted: #5b5b60;
+  --color-unior-line: #e7e3e2;
+  --color-unior-canvas: #faf9f8;
+
+  --font-display: 'Bebas Neue', system-ui, sans-serif;
+}
+
+@layer components {
+  /* ── Estructura ──────────────────────────────────────────────────────── */
+
+  /* El ancho de lectura de toda la aplicación. Una sola medida, y las páginas
+     quedan alineadas entre sí sin que nadie tenga que acordarse del número. */
+  .page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  .section {
+    @apply py-12 sm:py-16;
+  }
+
+  .section-head {
+    @apply mb-8 flex flex-col gap-2;
+  }
+
+  .section-title {
+    @apply text-3xl font-bold tracking-tight text-unior-ink sm:text-4xl;
+  }
+
+  .section-lead {
+    @apply max-w-2xl text-base leading-relaxed text-unior-muted;
+  }
+
+  /* La marca. Es la única pieza en tipografía de titular, igual que en la
+     página de la universidad. Sobre fondo oscuro se le agrega `text-white`: las
+     utilidades de Tailwind se aplican después de estas clases y ganan. */
+  .wordmark {
+    @apply font-display text-2xl leading-none tracking-[0.14em] text-unior-red-deep;
+  }
+
+  /* El escudo de la universidad, al lado de la marca. Va en `.webp` y con
+     `width`/`height` en el HTML: sin esas dos medidas el navegador no sabe
+     cuánto espacio reservar y la barra da un salto cuando la imagen llega. */
+  .brand {
+    @apply flex items-center gap-3;
+  }
+
+  .brand-mark {
+    @apply h-9 w-auto;
+  }
+
+  /* ── Barra superior ──────────────────────────────────────────────────── */
+
+  /* La barra es blanca en todas las pantallas, no transparente sobre la
+     portada. Una barra transparente obliga a que TODA pantalla empiece con una
+     imagen oscura detrás; el día que una no la tenga, el menú desaparece. */
+  .topbar-inner {
+    @apply flex h-16 items-center gap-2;
+  }
+
+  .topbar-links {
+    @apply ml-auto hidden items-center gap-1 sm:flex;
+  }
+
+  .topbar-link {
+    @apply rounded-full px-4 py-2 text-sm font-medium text-unior-muted transition-colors hover:bg-unior-red/8 hover:text-unior-red;
+  }
+
+  .topbar-link-active {
+    @apply bg-unior-red/10 text-unior-red;
+  }
+
+  /* La sesión, a la derecha de todo. El `ml-auto` está acá y no en los enlaces
+     de navegación porque esos se ocultan en móvil: si el margen viviera ahí,
+     el botón de la sesión se pegaría al escudo en pantallas chicas. */
+  .topbar-session {
+    @apply ml-auto flex items-center gap-1;
+  }
+
+  /* El hueco que ocupa la sesión mientras Firebase contesta. Reservarlo evita
+     que el resto de la barra salte cuando aparece el nombre. */
+  .topbar-session-placeholder {
+    @apply block h-9 w-28 rounded-full bg-unior-ink/5;
+  }
+
+  .topbar-user {
+    @apply max-w-40 truncate;
+  }
+
+  /* ── Portada ─────────────────────────────────────────────────────────── */
+
+  .hero {
+    @apply relative overflow-hidden bg-unior-red-deep text-white;
+  }
+
+  /* El velo diagonal que da profundidad sin necesitar una fotografía. */
+  .hero::after {
+    content: '';
+    @apply pointer-events-none absolute inset-0;
+    background:
+      radial-gradient(60rem 30rem at 15% -20%, rgb(241 0 3 / 0.55), transparent 60%),
+      radial-gradient(40rem 24rem at 90% 10%, rgb(241 179 0 / 0.22), transparent 60%);
+  }
+
+  .hero-inner {
+    @apply relative z-10 flex flex-col items-start gap-6 py-20 sm:py-28;
+  }
+
+  /* El escudo, enorme y casi transparente, contra el borde derecho. Es una
+     marca de agua: se nota que está y no compite con el titular. Se esconde en
+     el teléfono, donde el texto ya ocupa todo el ancho. */
+  .hero-watermark {
+    @apply pointer-events-none absolute -right-10 bottom-[-3rem] hidden w-[26rem] opacity-[0.07] select-none lg:block;
+  }
+
+  .hero-eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-medium tracking-[0.18em] uppercase;
+  }
+
+  .hero-title {
+    @apply max-w-3xl text-4xl leading-[1.05] font-bold tracking-tight sm:text-6xl;
+  }
+
+  .hero-lead {
+    @apply max-w-xl text-lg leading-relaxed text-white/80;
+  }
+
+  .hero-actions {
+    @apply mt-2 flex flex-wrap items-center gap-3;
+  }
+
+  /* ── Tarjetas ────────────────────────────────────────────────────────── */
+
+  .card-grid {
+    @apply grid gap-6 sm:grid-cols-2 lg:grid-cols-3;
+  }
+
+  /* La portada de la tarjeta. `aspect-video` fija la proporción antes de que la
+     imagen cargue: sin eso la tarjeta crece de golpe y empuja a las de abajo. */
+  .card-cover {
+    @apply aspect-video w-full object-cover;
+  }
+
+  .card-body {
+    @apply flex h-full flex-col gap-3 p-6;
+  }
+
+  .card-title {
+    @apply text-lg leading-snug font-semibold text-unior-ink;
+  }
+
+  .card-text {
+    @apply text-sm leading-relaxed text-unior-muted;
+  }
+
+  /* Lista con viñeta propia. Tailwind quita los estilos de lista del navegador,
+     así que la viñeta se pone acá: un punto rojo del tamaño de la línea. */
+  .bullets {
+    @apply flex flex-col gap-3;
+  }
+
+  .bullets > li {
+    @apply relative pl-6 text-sm leading-relaxed text-unior-muted;
+  }
+
+  .bullets > li::before {
+    content: '';
+    @apply absolute top-2 left-0 h-1.5 w-1.5 rounded-full bg-unior-red-vivid;
+  }
+
+  /* El subrayado corto de la página de la universidad: dos centímetros de rojo
+     debajo de cada tarjeta, y basta. */
+  .card-rule {
+    @apply mt-auto h-1 w-10 rounded-full bg-unior-red-vivid;
+  }
+
+  /* Etiqueta del área. El color lo pone el modificador.
+     `self-start` no es adorno: adentro de una columna flexible, un elemento se
+     estira hasta el ancho completo aunque sea `inline-flex`, y la etiqueta
+     quedaba como una barra de lado a lado. */
+  .tag {
+    @apply inline-flex w-fit items-center self-start rounded-full border border-unior-line px-3 py-1 text-xs font-medium text-unior-muted;
+  }
+
+  .tag-strong {
+    @apply border-transparent bg-unior-red/10 text-unior-red;
+  }
+
+  /* ── Ficha ───────────────────────────────────────────────────────────── */
+
+  /* El banner de la ficha. La proporción es 16/7 y no una más apaisada porque
+     las portadas están dibujadas a 16/9: recortar más alto le come la mitad
+     superior al motivo. Se decide acá, no retocando los cuatro dibujos. */
+  .detail-cover {
+    @apply mb-8 aspect-[16/7] w-full rounded-2xl object-cover;
+  }
+
+  .detail-grid {
+    @apply grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem];
+  }
+
+  .fact-list {
+    @apply divide-y divide-unior-line rounded-2xl border border-unior-line bg-white;
+  }
+
+  .fact {
+    @apply flex items-baseline justify-between gap-4 px-5 py-4;
+  }
+
+  .fact-label {
+    @apply text-sm text-unior-muted;
+  }
+
+  .fact-value {
+    @apply text-sm font-semibold text-unior-ink;
+  }
+
+  .price {
+    @apply text-3xl font-bold tracking-tight text-unior-ink;
+  }
+
+  /* ── Formulario ──────────────────────────────────────────────────────── */
+
+  .auth-shell {
+    @apply grid min-h-[calc(100dvh-4rem)] lg:grid-cols-2;
+  }
+
+  .auth-aside {
+    @apply relative hidden flex-col justify-end gap-4 overflow-hidden bg-unior-red-deep p-12 text-white lg:flex;
+  }
+
+  .auth-form {
+    @apply mx-auto flex w-full max-w-sm flex-col justify-center gap-5 px-5 py-16;
+  }
+
+  /* `<mat-error>` depende de `ngControl` y todavía no habla Signal Forms, así
+     que el mensaje de error se pinta con un párrafo. Es la única excepción
+     documentada a «si existe en Material, se usa Material». */
+  .field-note {
+    @apply text-sm text-unior-muted;
+  }
+
+  .field-error {
+    @apply flex items-start gap-2 rounded-xl bg-unior-red/8 px-4 py-3 text-sm text-unior-red;
+  }
+
+  /* ── Estados ─────────────────────────────────────────────────────────── */
+
+  /* Los tres estados de una pantalla que pide datos: cargando, vacío y con
+     contenido. El que casi todos se saltan es el primero. */
+  .state {
+    @apply flex flex-col items-center gap-3 rounded-2xl border border-dashed border-unior-line py-16 text-center;
+  }
+
+  .state-title {
+    @apply text-base font-semibold text-unior-ink;
+  }
+
+  .state-text {
+    @apply max-w-sm text-sm text-unior-muted;
+  }
+
+  /* ── Pie ─────────────────────────────────────────────────────────────── */
+
+  .footer {
+    @apply mt-auto border-t border-unior-line bg-white;
+  }
+
+  .footer-inner {
+    @apply flex flex-col items-start justify-between gap-4 py-8 sm:flex-row sm:items-center;
+  }
+
+  .footer-text {
+    @apply text-sm text-unior-muted;
+  }
+}

@@ -1,1 +1,74 @@
-<h1>Public Login Page</h1>
+<div class="auth-shell">
+  <aside class="auth-aside">
+    <img
+      class="w-56"
+      src="img/logo-blanco.webp"
+      width="1200"
+      height="546"
+      alt="Universidad Privada de Oruro" />
+    <h2 class="max-w-sm text-3xl leading-tight font-bold">
+      La plataforma de posgrado de la Universidad Privada de Oruro
+    </h2>
+    <p class="max-w-sm text-white/70">
+      Sus programas, su avance y sus certificados, en un solo lugar.
+    </p>
+  </aside>
+
+  <div class="auth-form">
+    <div class="flex flex-col gap-2">
+      <h1 class="text-3xl font-bold tracking-tight text-unior-ink">Iniciar sesión</h1>
+      <p class="field-note">Ingrese con la cuenta que registró en Postgrado.</p>
+    </div>
+
+    <form class="flex flex-col gap-4" (submit)="$event.preventDefault(); onLogin()">
+      <mat-form-field class="field" appearance="outline">
+        <mat-label>Correo electrónico</mat-label>
+        <input matInput type="email" autocomplete="email" [formField]="form.email" />
+        <mat-icon matSuffix>mail</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="field" appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input
+          matInput
+          type="password"
+          autocomplete="current-password"
+          [formField]="form.password"
+        />
+        <mat-icon matSuffix>lock</mat-icon>
+      </mat-form-field>
+
+      @if (error()) {
+        <p class="field-error">
+          <mat-icon class="shrink-0">error_outline</mat-icon>
+          {{ error() }}
+        </p>
+      }
+
+      <button matButton="filled" type="submit" class="w-full" [disabled]="working()">
+        @if (working()) {
+          <mat-spinner diameter="20" />
+        } @else {
+          Ingresar
+        }
+      </button>
+    </form>
+
+    <div class="flex items-center gap-3">
+      <mat-divider class="flex-1" />
+      <span class="field-note">o</span>
+      <mat-divider class="flex-1" />
+    </div>
+
+    <button matButton="outlined" type="button" class="w-full" (click)="onGoogle()">
+      <mat-icon>account_circle</mat-icon>
+      Continuar con Google
+    </button>
+
+    <p class="field-note">
+      ¿Todavía no tiene cuenta?
+      <a routerLink="/programas" class="font-medium text-unior-red">Vea los programas</a>
+      y postule al que le interese.
+    </p>
+  </div>
+</div>

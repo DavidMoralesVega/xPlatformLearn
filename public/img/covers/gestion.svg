@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450" role="img" aria-label="Área de Gestión">
+  <rect width="800" height="450" fill="#2a2a2d"/>
+  <g fill="#f1b300">
+    <rect x="120" y="150" width="230" height="26" rx="13"/>
+    <rect x="190" y="196" width="300" height="26" rx="13" opacity="0.8"/>
+    <rect x="260" y="242" width="240" height="26" rx="13" opacity="0.62"/>
+    <rect x="330" y="288" width="270" height="26" rx="13" opacity="0.44"/>
+  </g>
+  <g stroke="#ffffff" stroke-width="2" opacity="0.18">
+    <path d="M120 120 L120 350"/>
+    <path d="M280 120 L280 350"/>
+    <path d="M440 120 L440 350"/>
+    <path d="M600 120 L600 350"/>
+  </g>
+  <circle cx="660" cy="120" r="34" fill="none" stroke="#f1b300" stroke-width="4" opacity="0.7"/>
+</svg>

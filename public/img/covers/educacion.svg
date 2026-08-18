@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450" role="img" aria-label="Área de Educación">
+  <rect width="800" height="450" fill="#8a0f1c"/>
+  <g fill="none" stroke="#ffffff" stroke-width="6" stroke-linejoin="round" opacity="0.9">
+    <path fill="none" d="M400 160 C340 120 260 120 200 150 V330 C260 300 340 300 400 340 Z"/>
+    <path fill="none" d="M400 160 C460 120 540 120 600 150 V330 C540 300 460 300 400 340 Z"/>
+  </g>
+  <g stroke="#f1b300" stroke-width="4" opacity="0.75">
+    <path d="M240 190 H350"/>
+    <path d="M240 225 H340"/>
+    <path d="M450 190 H560"/>
+    <path d="M460 225 H560"/>
+  </g>
+  <g fill="#f1b300" opacity="0.9">
+    <path d="M400 60 L700 108 L400 156 L100 108 Z"/>
+  </g>
+</svg>
